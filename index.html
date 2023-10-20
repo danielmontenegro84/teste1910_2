@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+
+        async function createPromise(url){
+            return new Promise(
+                function(resolve, reject){
+                    // fazendo uma requisição ajax
+                    var xhr = new XMLHttpRequest();
+
+                    xhr.open('GET', url, true);
+                    
+                    // Tratamento do retorno
+                    xhr.onreadystatechange = function(){
+                        if(xhr.readyState == 4 ){
+                            if( xhr.status == 200){
+                                resolve(xhr.responseText);
+                            }
+                            else{
+                                reject(xhr.status);
+                            }
+                        }
+                    }
+                    xhr.send();
+                    
+                }
+            ); 
+
+        }
+          
+
+        // Usando uma promise
+        // promise
+        //    .then(
+        //         function(result){
+        //             console.log(result);
+        //         }
+        //    )
+        //    .catch(
+        //         function(error){
+        //             console.log(error);
+        //         }
+        //    );
+
+        const main = async () => {
+            try {
+                const promisse1 = await createPromise("data.json");
+                console.log(promisse1);
+            } catch (error) {
+                console.log(error);
+            }
+
+        }
+
+        main();
+
+    </script>
+</body>
+</html>
